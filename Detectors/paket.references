@@ -1,0 +1,7 @@
+Costura.Fody
+MahApps.Metro
+MahApps.Metro.IconPacks
+Newtonsoft.Json.Schema
+  alias Newtonsoft.Json.Schema.dll JsonSchemaDLL
+HtmlAgilityPack
+EPPLus

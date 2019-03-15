@@ -1,0 +1,121 @@
+{
+  "definitions"        : {},
+  "$schema"            : "http://json-schema.org/draft-07/schema#",
+  "$id"                : "ScenarioSchema.json",
+  "type"               : "object",
+  "title"              : "Detectors Scenario Schema",
+  "description"        : "Used to Validate Input Scenario Files",
+  "required"           : [ "Name", "Start", "End", "FolderSettings", "DetectorsFileName" ],
+  "properties"         : {
+    "Name"             : {
+      "$id"            : "#/properties/Name",
+      "type"           : "string",
+      "title"          : "Scenario Name",
+      "description"    : "Has No Meaning Other Than Updating the Title Bar",
+      "default"        : "",
+      "pattern"        : "^(.*)$"
+    },
+    "Start"            : {
+      "$id"            : "#/properties/Start",
+      "type"           : "object",
+      "title"          : "Start",
+      "description"    : "Defines the Start Period for Downloading Archived Data",
+      "required"       : [ "Date", "Time" ],
+      "properties"     : {
+        "Date"         : {
+          "$id"        : "#/properties/Start/properties/Date",
+          "type"       : "string",
+          "title"      : "Date",
+          "description": "Defines the Start Date for Downloading Archived Data",
+          "default"    : "2019-01-01",
+          "examples"   : [ "2019-01-01" ],
+          "pattern"    : "^(.*)$"
+        },
+        "Time"         : {
+          "$id"        : "#/properties/Start/properties/Time",
+          "type"       : "string",
+          "title"      : "Time",
+          "description": "Defines the Start Time for Downloading Archived Data",
+          "default"    : "",
+          "examples"   : [ "12:00 AM" ],
+          "pattern"    : "^(.*)$"
+        }
+      }
+    },
+    "End": {
+      "$id": "#/properties/End",
+      "type": "object",
+      "title": "End",
+      "description"    : "Defines the Start Period for Downloading Archived Data",
+      "required"       : [ "Date", "Time" ],
+      "properties"     : {
+        "Date"         : {
+          "$id"        : "#/properties/Start/properties/Date",
+          "type"       : "string",
+          "title"      : "Date",
+          "description": "Defines the Start Date for Downloading Archived Data",
+          "default"    : "2019-01-01",
+          "examples"   : [ "2019-01-01" ],
+          "pattern"    : "^(.*)$"
+        },
+        "Time"         : {
+          "$id"        : "#/properties/Start/properties/Time",
+          "type"       : "string",
+          "title"      : "Time",
+          "description": "Defines the Start Time for Downloading Archived Data",
+          "default"    : "",
+          "examples"   : [ "12:00 AM" ],
+          "pattern"    : "^(.*)$"
+        }
+      }
+    },
+    "FolderSettings": {
+      "$id": "#/properties/FolderSettings",
+      "type": "object",
+      "title": "FolderSettings Schema",
+      "required": [ "Scenario", "Input", "Output" ],
+      "properties": {
+        "Scenario": {
+          "$id": "#/properties/FolderSettings/properties/Scenario",
+          "type": "string",
+          "title": "Scenario Folder Schema",
+          "description": "Defines the Root Folder for a Scenario. Should Include an Input and Output Folders",
+          "default": "Scenario",
+          "pattern": "^(.*)$"
+        },
+        "Input": {
+          "$id": "#/properties/FolderSettings/properties/Input",
+          "type": "string",
+          "title": "Defines Where Input Data Can Be Found Inside The Scenario Folder.",
+          "description": "",
+          "default": "Input",
+          "pattern": "^(.*)$"
+        },
+        "Output": {
+          "$id": "#/properties/FolderSettings/properties/Output",
+          "type": "string",
+          "title": "Output Folder Schema",
+          "description": "Defines Where Output Data Should Be Written Inside The Scenario Folder.",
+          "default": "Output",
+          "pattern": "^(.*)$"
+        }
+      }
+    },
+    "DetectorsFileName": {
+      "$id": "#/properties/DetectorsFileName",
+      "type": "string",
+      "title": "The Detectors File Name Schema",
+      "description": "Defines What Detectors To Be Considered for Downloading",
+      "default": "Detectors.xlsx",
+      "pattern": "^(.*)$"
+    },
+    "ErrorsFileName": {
+      "$id": "#/properties/ErrorsFileName",
+      "type": "string",
+      "title": "The Errors File Name Schema",
+      "description": "Defines Where To Dump Error Messages",
+      "default": "Errors.Log",
+      "pattern": "^(.*)$"
+    }
+  }
+}

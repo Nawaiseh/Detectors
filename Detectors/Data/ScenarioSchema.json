@@ -1,0 +1,60 @@
+{
+  "definitions": {},
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "$id": "http://example.com/root.json",
+  "type": "object",
+  "title": "The Root Schema",
+  "description": "An explanation about the purpose of this instance.",
+  "required": [
+    "Name",
+    "Start DateTime",
+    "End DateTime",
+    "Detectors List FileName"
+  ],
+  "properties": {
+    "Name": {
+      "$id": "#/properties/Name",
+      "type": "string",
+      "title": "The Name Schema",
+      "description": "An explanation about the purpose of this instance.",
+      "default": "",
+      "examples": [
+        "XXX"
+      ],
+      "pattern": "^(.*)$"
+    },
+    "Start DateTime": {
+      "$id": "#/properties/Start DateTime",
+      "type": "string",
+      "title": "The Start datetime Schema",
+      "description": "An explanation about the purpose of this instance.",
+      "default": "",
+      "examples": [
+        "2019-03-01T21:24:06.4597072-07:00"
+      ],
+      "pattern": "^(.*)$"
+    },
+    "End DateTime": {
+      "$id": "#/properties/End DateTime",
+      "type": "string",
+      "title": "The End datetime Schema",
+      "description": "An explanation about the purpose of this instance.",
+      "default": "",
+      "examples": [
+        "2019-03-01T21:24:06.4597072-07:00"
+      ],
+      "pattern": "^(.*)$"
+    },
+    "Detectors List FileName": {
+      "$id": "#/properties/Detectors List FileName",
+      "type": "string",
+      "title": "The Detectors list filename Schema",
+      "description": "An explanation about the purpose of this instance.",
+      "default": "",
+      "examples": [
+        "XX"
+      ],
+      "pattern": "^(.*)$"
+    }
+  }
+}

@@ -1,0 +1,86 @@
+﻿<UserControl
+    x:Class="Detectors.UI.Controls.Time"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    x:Name="_TimePicker"
+    FontFamily="Simple Outline Pat"
+    FontSize="14"
+    FontWeight="DemiBold">
+    <Grid
+        x:Name="LayoutRoot"
+        Width="Auto"
+        Height="Auto">
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="0.2*" />
+            <ColumnDefinition Width="0.05*" />
+            <ColumnDefinition Width="0.2*" />
+            <ColumnDefinition Width="0.05*" />
+            <ColumnDefinition Width="0.2*" />
+        </Grid.ColumnDefinitions>
+        <TextBox
+            x:Name="Hours_Portion"
+            VerticalAlignment="Center"
+            x:FieldModifier="private"
+            BorderThickness="0"
+            Focusable="True"
+            FontFamily="{Binding Path=FontFamily, ElementName=_TimePicker, Mode=Default}"
+            FontSize="{Binding Path=FontSize, ElementName=_TimePicker, Mode=Default}"
+            FontWeight="{Binding Path=FontWeight, ElementName=_TimePicker, Mode=Default}"
+            MouseWheel="TextBox_MouseWheel"
+            PreviewKeyDown="TextBox_KeyDown"
+            Tag="23"
+            Text="{Binding Path=Hours, ElementName=_TimePicker, Mode=Default}"
+            TextAlignment="Center" />
+        <Label
+            Grid.Column="1"
+            VerticalAlignment="Center"
+            HorizontalContentAlignment="Center"
+            VerticalContentAlignment="Center"
+            Background="Transparent"
+            Content=":"
+            FontFamily="{Binding Path=FontFamily, ElementName=_TimePicker, Mode=Default}"
+            FontSize="{Binding Path=FontSize, ElementName=_TimePicker, Mode=Default}"
+            FontWeight="{Binding Path=FontWeight, ElementName=_TimePicker, Mode=Default}" />
+        <TextBox
+            x:Name="Minutes_Portion"
+            Grid.Column="2"
+            VerticalAlignment="Center"
+            x:FieldModifier="private"
+            Background="Transparent"
+            BorderThickness="0"
+            Focusable="True"
+            FontFamily="{Binding Path=FontFamily, ElementName=_TimePicker, Mode=Default}"
+            FontSize="{Binding Path=FontSize, ElementName=_TimePicker, Mode=Default}"
+            FontWeight="{Binding Path=FontWeight, ElementName=_TimePicker, Mode=Default}"
+            MouseWheel="TextBox_MouseWheel"
+            PreviewKeyDown="TextBox_KeyDown"
+            Tag="59"
+            Text="{Binding Path=Minutes, ElementName=_TimePicker, Mode=Default}"
+            TextAlignment="Center" />
+        <Label
+            Grid.Column="3"
+            VerticalAlignment="Center"
+            HorizontalContentAlignment="Center"
+            VerticalContentAlignment="Center"
+            Background="Transparent"
+            Content=":"
+            FontFamily="{Binding Path=FontFamily, ElementName=_TimePicker, Mode=Default}"
+            FontSize="{Binding Path=FontSize, ElementName=_TimePicker, Mode=Default}"
+            FontWeight="{Binding Path=FontWeight, ElementName=_TimePicker, Mode=Default}" />
+        <TextBox
+            x:Name="Seconds_Portion"
+            Grid.Column="4"
+            VerticalAlignment="Center"
+            x:FieldModifier="private"
+            Background="Transparent"
+            BorderThickness="0"
+            Focusable="True"
+            FontFamily="{Binding Path=FontFamily, ElementName=_TimePicker, Mode=Default}"
+            FontSize="{Binding Path=FontSize, ElementName=_TimePicker, Mode=Default}"
+            FontWeight="{Binding Path=FontWeight, ElementName=_TimePicker, Mode=Default}"
+            MouseWheel="TextBox_MouseWheel"
+            PreviewKeyDown="TextBox_KeyDown"
+            Text="{Binding Path=Seconds, ElementName=_TimePicker, Mode=Default}"
+            TextAlignment="Center" />
+    </Grid>
+</UserControl>
