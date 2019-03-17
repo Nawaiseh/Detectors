@@ -122,8 +122,6 @@
       <LastGenOutput>Resources.Designer.cs</LastGenOutput>
     </EmbeddedResource>
     <EmbeddedResource Include="Data\Scenario\ScenarioSchema.json" />
-    <None Include="CalTrans\CalTrans.json" />
-    <None Include="CalTrans\Input\Single Loop Detectors.xlsx" />
     <None Include="FodyWeavers.xsd">
       <SubType>Designer</SubType>
     </None>
