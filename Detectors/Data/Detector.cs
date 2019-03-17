@@ -101,6 +101,7 @@ namespace Detectors.Data
         internal string UrlDirection { get => $"dir={Dir}"; }
         internal string UrlPosition { get => $"start_pm={Math.Round(AbsPM - 0.01, 3)}&end_pm={Math.Round(AbsPM + 0.01, 3)}"; }
         internal string UrlLanes { get => $"lanes={Lanes}"; }
+        internal string UrlStationType { get => $"station_type={StationTypes[Type]}"; }
         internal string UrlFormData { get => $"/?{UrlReportForm}&{UrlNode}&{UrlContent}&{UrlTabs}&{UrlExport}&{UrlFreeway}&{UrlDirection}"; }
         private static DateTime Year1970 { get; } = new DateTime(1970, 1, 1);
         private static TimeSpan OneDay { get; } = new TimeSpan(1, 0, 0, 0);
@@ -124,7 +125,7 @@ namespace Detectors.Data
                 string DateId = CurrentDate.ToString(@"MM\\d\\yyyy");
                 string FileName = $"{CurrentDate.ToString(@"yyyy_MM_d")}.xlsx";
                 FileName = Path.Combine(SaveFolder, FileName);
-                string UrlParameters = $"{UrlFormData}&{DateToString(Start, End, CurrentDate)}&{UrlPosition}&{UrlLanes}&station_type=ml&q={Option}&colormap=30%2C31%2C32&sc=auto&ymin=&ymax=&view_d=2&html.x=53&html.y=11";
+                string UrlParameters = $"{UrlFormData}&{DateToString(Start, End, CurrentDate)}&{UrlPosition}&{UrlLanes}&{UrlStationType}&q={Option}&colormap=30%2C31%2C32&sc=auto&ymin=&ymax=&view_d=2&html.x=53&html.y=11";
                 string FullUrl = $"{Scenario.Url}{UrlParameters}";
                 bool Fail = false;
                 do
