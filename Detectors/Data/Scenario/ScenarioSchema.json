@@ -5,13 +5,37 @@
   "type"               : "object",
   "title"              : "Detectors Scenario Schema",
   "description"        : "Used to Validate Input Scenario Files",
-  "required"           : [ "Name", "Start", "End", "FolderSettings", "DetectorsFileName" ],
+  "required"           : [ "Name", "Url", "Start", "End", "FolderSettings", "DetectorsFileName" ],
   "properties"         : {
     "Name"             : {
       "$id"            : "#/properties/Name",
       "type"           : "string",
       "title"          : "Scenario Name",
       "description"    : "Has No Meaning Other Than Updating the Title Bar",
+      "default"        : "",
+      "pattern"        : "^(.*)$"
+    },
+    "Url"              : {
+      "$id"            : "#/properties/Url",
+      "type"           : "string",
+      "title"          : "Web Service Url",
+      "description"    : "Web Service Url",
+      "default"        : "",
+      "pattern"        : "^(.*)$"
+    },
+    "Username"              : {
+      "$id"            : "#/properties/Username",
+      "type"           : "string",
+      "title"          : "Web Service Username",
+      "description"    : "Web Service Username",
+      "default"        : "",
+      "pattern"        : "^(.*)$"
+    },
+    "Password"              : {
+      "$id"            : "#/properties/Password",
+      "type"           : "string",
+      "title"          : "Web Service Password",
+      "description"    : "Web Service Password",
       "default"        : "",
       "pattern"        : "^(.*)$"
     },

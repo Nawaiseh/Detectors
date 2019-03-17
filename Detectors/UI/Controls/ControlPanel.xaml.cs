@@ -3,12 +3,14 @@ using System.Diagnostics;
 using System.Reflection;
 using System.Windows;
 using System.Windows.Forms;
+
 using Detectors.Data;
+using Detectors.Http;
 using MahApps.Metro.Controls.Dialogs;
 
 namespace Detectors.UI.Controls
 {
-	public partial class ControlPanel
+    public partial class ControlPanel
 	{
         public static readonly DependencyProperty ICON_WIDTH_PROPERTY = DependencyProperty.Register("IconWidth", typeof(int), typeof(ControlPanel), new UIPropertyMetadata(1, new PropertyChangedCallback(OnValueChanged)));
         public int IconWidth { get => (int)GetValue(ICON_WIDTH_PROPERTY); set => SetValue(ICON_WIDTH_PROPERTY, value); }
@@ -84,19 +86,30 @@ namespace Detectors.UI.Controls
 				MainWindow.Scenario =  Scenario.Load(@"C:\CS\Others\New folder\TD\Detectors\CalTrans\CalTrans.json");
 				Data.Detectors.CreateDetectors(MainWindow.Scenario);
 			}
-			
-			//string Url = "http://pems.dot.ca.gov/";
-			//bool Ok = DetectorCounters.Login(Url, "ahmedehassan@gmail.com", "water7%B~!u");
-			//if (Ok)
-			//{
-			//	Ok = DetectorCounters.Download("http://pems.dot.ca.gov/?report_form=1&dnode=Freeway&content=spatial&tab=contours&export=&fwy=10&dir=E&s_time_id=1551398400&s_time_id_f=03%2F01%2F2019&from_hh=6&to_hh=18&start_pm=.17&end_pm=0.18&lanes=&station_type=ml&q=flow&colormap=30%2C31%2C32&sc=auto&ymin=&ymax=&view_d=2&html.x=53&html.y=11");
-			//}
+            bool Ok = DetectorCounters.Login(MainWindow.Scenario);
+            if (Ok)
+            {
+                MainWindow Window = MainWindow.Window;
+                Detectors.Data.Detectors.StartDownloading(MainWindow.Scenario, Window.Start, Window.End, Window.DownLoadOptions);
+            }
 
-			StartButton.IsEnabled = false;
+            StartButton.IsEnabled = false;
 			StartTimer();
 		}
 		private void Start_Click(object sender, RoutedEventArgs e) => Start();
         private void Stop_Click(object sender, RoutedEventArgs e) { Timer.Stop(); StartButton.IsEnabled = true; }
 
+        private void Open_Click(object sender, RoutedEventArgs e)
+        {
+            MainWindow.Scenario = Scenario.Load(@"C:\CSharp\Detectors\CalTrans\CalTrans.json");
+            MainWindow Window = MainWindow.Window;
+            Window.Start.SelectedDate = MainWindow.Scenario.Start.Date;
+            Window.Start.SelectedTime = MainWindow.Scenario.Start.Time;
+            Window.End.SelectedDate = MainWindow.Scenario.End.Date;
+            Window.End.SelectedTime = MainWindow.Scenario.End.Time;
+            Data.Detectors.CreateDetectors(MainWindow.Scenario);
+            StartButton.IsEnabled = true;
+
+        }
     }
 }

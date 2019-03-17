@@ -9,7 +9,7 @@
     xmlns:MahAppsIcons="http://metro.mahapps.com/winfx/xaml/iconpacks"
     xmlns:MarkupCompatibility="http://schemas.openxmlformats.org/markup-compatibility/2006"
     Title="Detectors' Data Downloader"
-    Width="1000"
+    Width="800"
     Height="400"
     MarkupCompatibility:Ignorable="Blend"
     BorderBrush="{DynamicResource AccentColorBrush}"
@@ -104,10 +104,10 @@
             IconWidth="80"
             Width="100"/>
         <Controls:StatusView
-            x:Name="StatusBar"
+            x:Name="StatusView"
             DockPanel.Dock="Bottom"
             FailedRecordsHeader="Number of Records Failed To Process :"
-            FontSize="14"
+            FontSize="12"
             Maximum="100"
             Minimum="0"
             Progress="50"
@@ -117,9 +117,9 @@
             TotalRecordsHeader="Total Records To Process :" />
         <Grid Grid.Row="2">
             <Grid.ColumnDefinitions>
-                <ColumnDefinition Width="0.4*" />
-                <ColumnDefinition Width="0.4*" />
-                <ColumnDefinition Width="0.2*" />
+                <ColumnDefinition Width="*" />
+                <ColumnDefinition Width="*" />
+                <ColumnDefinition Width="*" />
             </Grid.ColumnDefinitions>
             <Controls:Date
                 x:Name="Start"
@@ -148,6 +148,7 @@
                 Minutes="59"
                 Seconds="59" />
             <Controls:DownloadOptions
+                x:Name="DownLoadOptions"
                 Grid.Column="2"
                 All="true"
                 FontFamily="Segoe UI Semibold"

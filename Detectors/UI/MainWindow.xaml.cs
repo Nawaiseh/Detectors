@@ -1,5 +1,6 @@
 ﻿using Detectors.Data;
 using Detectors.Http;
+using System;
 using System.Diagnostics;
 using System.Windows;
 
@@ -16,7 +17,7 @@ namespace Detectors.UI
         internal static Process PreviousProcess { get;   set; }
         public MainWindow()
 		{
-           PreviousProcess = Controls.ControlPanel.PriorProcess();
+            PreviousProcess = Controls.ControlPanel.PriorProcess();
             InitializeComponent();
 			Window = this;
 		}

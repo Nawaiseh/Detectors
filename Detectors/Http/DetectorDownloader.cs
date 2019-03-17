@@ -73,7 +73,7 @@ namespace Detectors.Http
 
 
 		// Main Method
-		public static string XMLHttpRequest(string Url, string FormData, string ContentType)
+		public static string XMLHttpRequest(string Url)
 		{
 			HttpWebRequest HttpWebRequest = (HttpWebRequest)WebRequest.Create(Url);
 			HttpWebRequest.Method = "POST";
@@ -82,7 +82,7 @@ namespace Detectors.Http
 			{
 				//FillHttpWebRequestHeaders(HttpWebRequest, Url, FormData, ContentType);
 
-				EncodedFromData = UpdateHttpWebRequestFormPayLoad(HttpWebRequest, FormData);
+				//EncodedFromData = UpdateHttpWebRequestFormPayLoad(HttpWebRequest, FormData);
 
 				using (Stream ResponseStream = GetHttpWebRequestResponse(HttpWebRequest))
 
@@ -112,17 +112,8 @@ namespace Detectors.Http
 			}
 		}
 
-		private static void ToImage(string EncryptedImage, string FileName)
-		{
-			byte[] Bytes = Convert.FromBase64String(EncryptedImage);
-			using (FileStream imageFile = new FileStream(FileName, FileMode.Create))
-			{
-				imageFile.Write(Bytes, 0, Bytes.Length);
-				imageFile.Flush();
-			}
-		}
-
-		internal static bool Login(string Url, string Username, string Password)
+        internal static bool Login(Scenario Scenario) => Login(Scenario.Url, Scenario.Username, Scenario.Password);
+        internal static bool Login(string Url, string Username, string Password)
 		{
 			try
 			{
@@ -137,18 +128,14 @@ namespace Detectors.Http
 				string Response = Encoding.UTF8.GetString(Response_Bytes);
 				return true;
 			}
-			catch (Exception) {
-				return false;
-				}
-		}
-		private static void SetRequestHeaders(string Url)
+            catch (Exception) { return false; }
+        }
+        private static void SetRequestHeaders(string Url)
 		{
 			WebClient.Headers[HttpRequestHeader.Accept] = "*/*";
 			WebClient.Headers["Accept-Encoding"] = "gzip, deflate";
 			WebClient.Headers["Accept-Language"] = "en-US,en;q=0.9,ar;q=0.8";
 			WebClient.Headers[HttpRequestHeader.KeepAlive] = "true"; 
-			//WebClient.Headers[HttpRequestHeader.ContentLength] = "0";
-			//WebClient.Headers[HttpRequestHeader.ContentType] = "application/x-www-form-urlencoded; charset=UTF-8";
 			WebClient.Headers["DNT"]= "1";
 			WebClient.Headers["Origin"]= "http://pems.dot.ca.gov";
 			WebClient.Headers[HttpRequestHeader.Host] = "pems.dot.ca.gov";
@@ -160,11 +147,11 @@ namespace Detectors.Http
 
 		}
 
-		internal static bool Download(string Url)
+		internal static bool Download(string Url, Detector Detector, string Option, int TimeId, string DateId, int StartHour, int EndHour, string FileName)
 		{
 			try
 			{
-				SetRequestHeaders(Url);
+                SetRequestHeaders(Url);
 				NameValueCollection Parameters = new NameValueCollection
 				{
 					["report_form"] = "1",
@@ -172,35 +159,32 @@ namespace Detectors.Http
 					["content"] = "spatial",
 					["tab"] = "contours",
 					["export"] = "",
-					["fwy"] = "10",
-					["dir"] = "E",
-					["s_time_id"] = "1551398400",
-					["s_time_id_f"] = "03/01/2019",  
-					["from_hh"] = "6",
-					["to_hh"] = "18",
-					["start_pm"] = ".17",
-					["end_pm"] = "0.18",
-					["lanes"] = "",
-					["station_type"] = "ml",
-					["q"] = "flow",
+					["fwy"] = $"{Detector.FwyId}",
+					["dir"] = $"{Detector.Dir}",
+					["s_time_id"] = $"{TimeId}",
+					["s_time_id_f"] = $"{DateId}",  //??
+					["from_hh"] = $"{StartHour}",
+					["to_hh"] = $"{EndHour}",
+					["start_pm"] = $"{Detector.AbsPM - 0.01}",
+					["end_pm"] = $"{Detector.AbsPM + 0.01}",
+					["lanes"] = $"{Detector.Lanes}",
+					["station_type"] = $"{Detector.StationTypes[Detector.Type]}",
+					["q"] = $"{Option}",
 					["colormap"] = "30,31,32", 
 					["sc"] = "auto",
-					["ymin"] = "",
-					["ymax"] = "",
+					["ymin"] = "11",
+					["ymax"] = "53",
 					["view_d"] = "2"
 				};
-				byte[] Response_Bytes = WebClient.GetPostResponse(Url, Parameters);
+				byte[] Response_Bytes = WebClient.GetPostResponse(Url, new NameValueCollection());
 				//string Response = WebClient.DownloadString(Url, "POST", Parameters)
-				string Response = Encoding.UTF8.GetString(Response_Bytes);
-				HtmlNode HtmlTable = HTMLTableHelper.GetHtmlTable(Response, "inlayTable");
-				HTMLTableHelper.SaveResponseToExcel(HtmlTable, @"C:\CS\Others\New folder\TD\Detectors\Detectors\Test.xlsx");
+				Detector.Response = Encoding.UTF8.GetString(Response_Bytes);
+				HtmlNode HtmlTable = HTMLTableHelper.GetHtmlTable(Detector.Response, "inlayTable");
+				HTMLTableHelper.SaveResponseToExcel(HtmlTable, FileName);
 				return true;
 			}
 			catch { return false; }
 		}
-		internal static void DownloadPage(string Url, string SavePath, List<KeyValuePair<string, string>> Queries) => Url = "http://its.txdot.gov/ITS_WEB/FrontEnd/svc/DataRequestWebService.svc/GetCctvContent";//WebClient.BaseAddress
-
-		internal static string DownloadPage(string Url, Detector Camera) => XMLHttpRequest(Url, Camera.FormData, "application/json; charset=UTF-8");
 
 	}
 }

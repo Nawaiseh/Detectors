@@ -10,13 +10,26 @@
         <Grid.RowDefinitions>
             <RowDefinition Height="*" />
             <RowDefinition Height="*" />
+            <RowDefinition Height="*" />
         </Grid.RowDefinitions>
+        <Button
+            Width="{Binding Path=Width, ElementName=_ControlPanel, Mode=Default}"
+            Background="Transparent"
+            Click="Open_Click"
+            Grid.Row="0"
+            Foreground="#FF379496">
+            <MahAppsIcons:Material
+                Width="70" 
+                Height="70"
+                Kind="FolderOpen" />
+        </Button>
         <Button
             x:Name="StartButton"
             Width="{Binding Path=Width, ElementName=_ControlPanel, Mode=Default}"
             Background="Transparent"
             Click="Start_Click"
-            Grid.Row="0"
+            IsEnabled="False"
+            Grid.Row="1"
             Foreground="#FF699637">
             <MahAppsIcons:Material
                 Width="70" 
@@ -28,7 +41,8 @@
             Width="{Binding Path=Width, ElementName=_ControlPanel, Mode=Default}"
             Background="Transparent"
             Click="Stop_Click"
-            Grid.Row="1"
+            IsEnabled="False"
+            Grid.Row="2"
             Foreground="#FFFF462E">
             <MahAppsIcons:Material
                 Width="60" 

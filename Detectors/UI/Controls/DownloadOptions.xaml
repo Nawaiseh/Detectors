@@ -54,8 +54,8 @@
                         <RadioButton 
                             Grid.Row="2"
                             TextBlock.TextAlignment="Left" 
-                            IsChecked="{Binding Path=Capacity, ElementName=_CustomDate, Mode=Default}"
-                            Content="Capacity"
+                            IsChecked="{Binding Path=Occupancy, ElementName=_CustomDate, Mode=Default}"
+                            Content="Occupancy"
                             FontFamily="{Binding Path=FontFamily, ElementName=_CustomDate, Mode=Default}"
                             FontSize="{Binding Path=FontSize, ElementName=_CustomDate, Mode=Default}"
                             FontWeight="{Binding Path=FontWeight, ElementName=_CustomDate, Mode=Default}"/>

@@ -15,6 +15,9 @@ namespace Detectors.Data
 		internal static string DefaultErrorsFileName                                                                                { get; set; } = "Errors.Log";
 		#region ■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■   JSON Loaded Variables       ■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■
 		[JsonProperty("Name"             , NullValueHandling = NullValueHandling.Ignore)] internal string         Name              { get; set; }
+		[JsonProperty("Username"         , NullValueHandling = NullValueHandling.Ignore)] internal string         Username          { get; set; }
+		[JsonProperty("Password"         , NullValueHandling = NullValueHandling.Ignore)] internal string         Password          { get; set; }
+		[JsonProperty("Url"              , NullValueHandling = NullValueHandling.Ignore)] internal string         Url               { get; set; }
 		[JsonProperty("Start"            , NullValueHandling = NullValueHandling.Ignore)] internal CustomDate     Start             { get; set; }
 		[JsonProperty("End"              , NullValueHandling = NullValueHandling.Ignore)] internal CustomDate     End               { get; set; }
 		[JsonProperty("FolderSettings"   , NullValueHandling = NullValueHandling.Ignore)] internal FolderSettings FolderSettings    { get; set; }

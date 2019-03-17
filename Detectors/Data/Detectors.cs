@@ -2,9 +2,9 @@
 using System.Collections.Generic;
 using System.IO;
 using System.Threading;
-
+using Detectors.Http;
 using Detectors.UI;
-
+using Detectors.UI.Controls;
 using MahApps.Metro.Controls.Dialogs;
 
 using OfficeOpenXml;
@@ -116,30 +116,34 @@ namespace Detectors.Data
 			}
 			return Status;
 		}
-
-		internal static void DownloadCountersImagery(string Folder, string Date, string Time)
+        private static void DownloadDetectorData(Detector Detector, Scenario Scenario, List<string> Options, Date Start, Date End)
+        {
+            string RootFolder = Path.Combine(Scenario.FolderSettings.Scenario, Scenario.FolderSettings.Output);
+            foreach (string Option in Options) {
+                string SaveFolder = Path.Combine(RootFolder, Option, Detector.Id);
+                if (!Directory.Exists(SaveFolder)) { Directory.CreateDirectory(SaveFolder); }
+                bool Ok = false;
+                int TriesCount = 0;
+                do
+                {
+                    TriesCount++;
+                    App.Current.Dispatcher.Invoke(() => { Ok = Detector.DownloadData(Scenario, Start, End, Option, SaveFolder); });
+                } while (!Ok && TriesCount <= 10);
+            }
+        }
+		internal static void DownloadCountersData(Scenario Scenario, List<string> Options, Date Start, Date End)
 		{
-			//Folder = Path.Combine(Folder, $"{Date}__{Time}");
-			//foreach (string Region in DetectorsList.Keys)
-			//{
-			//	string RegionFolder = Path.Combine(Folder, Region);
-			//	SortedList<string, SortedList<string, Detector>> RegionDetectors = DetectorsList[Region];
-			//	foreach (string Roadway in RegionDetectors.Keys)
-			//	{
-			//		string RoadwayFolder = Path.Combine(RegionFolder, Roadway);
-			//		SortedList<string, Detector> RoadwayDetectors = RegionDetectors[Roadway];
-			//		if (!Directory.Exists(RoadwayFolder)) { Directory.CreateDirectory(RoadwayFolder); }
-			//		foreach (Detector Camera in RoadwayDetectors.Values) { Camera.DownloadAndSave(Url, RoadwayFolder); }
-			//	}
-			//}
-		}
-
-		internal static void StartDownloading(DateTime TimeStamp)
+            foreach (Detector Detector in DetectorsList.Values) { DownloadDetectorData(Detector, Scenario, Options, Start, End); }
+        }
+        internal static void StartDownloading(Scenario Scenario, Date Start, Date End, DownloadOptions DownloadOptions)
 		{
-			string Folder = Path.Combine(Environment.CurrentDirectory, "Output");
-			string Date = $"TimeStamp___{TimeStamp.ToString(@"yyyy_MM_dd")}";
-			string Time = TimeStamp.ToString(@"hh_mm_ss_tt");
-			Thread Thread = new Thread(() => DownloadCountersImagery(Folder, Date, Time));
+            List<string> Folders = new List<string>();
+            if (DownloadOptions.All) { Folders.Add("speed"); Folders.Add("flow"); Folders.Add("occ"); }
+            else if (DownloadOptions.Speed) { Folders.Add("speed"); }
+            else if (DownloadOptions.Flow) { Folders.Add("flow"); }
+            else if (DownloadOptions.Occupancy) { Folders.Add("occ"); }
+            
+			Thread Thread = new Thread(() => DownloadCountersData(Scenario, Folders, Start, End));
 			Thread.Start();
 		}
 
